@@ -957,11 +957,13 @@ HERO = -1
 end
 
 
-
+function U30 ()
+gg.alert("🕵️‍♂️جاري العمل عليها عليك الانتظار حتي يتم الانتهاء هات خمسه جنيه🕵️‍♂️")
+end -- 👹MAHMOUDHERO👹
 
 --قسم جميع اكواد الزينه 
-function U30 ()
-lastMenu = U30
+function U300 ()
+lastMenu = U300
 hero = gg.multiChoice({
 "╔══════⟬⚜️⟭══════╗\n𝄟           اكواد زينه طائرة        𝄟 \n╚═══════════════╝",--1
 "╔══════⟬⚜️⟭══════╗\n𝄟            اكواد زينه مائيه        𝄟 \n╚═══════════════╝",--2
@@ -996,7 +998,7 @@ hero = gg.multiChoice({
 "╔══════⟬⚜️⟭══════╗\n𝄟    🔥تنزيل جميع الاكواد🔥  𝄟 \n╚═══════════════╝",--31
 "╔══════⟬⚜️⟭══════╗\n𝄟           رجـــــــــــــــــــوع       𝄟 \n╚═══════════════╝",--32
 }, MAHMOUD, "╔══════════✦❘༻༺❘✦══════════╗\n𝄟⃝🕊 ❪ 🇲 🇦 🇭 🇲 🇴 🇺 🇩 🇭 🇪 🇷 🇴 ❫   𝄟\n╚══════════✦❘༻༺❘✦══════════╝")
-if hero== U30 then else
+if hero== U300 then else
 if hero[1]== true then UU1() end -- 👹MAHMOUDHERO👹
 if hero[2]== true then UU2() end -- 👹MAHMOUDHERO👹
 if hero[3]== true then U3() end -- 👹MAHMOUDHERO👹
