@@ -3882,40 +3882,50 @@ local freezeList = {}
 for i, v in ipairs(results) do
 
     local modifications = {
-        {address = v.address + 52, flags = gg.TYPE_FLOAT, value = 1, freeze = true},
+    {address = v.address + 52, flags = gg.TYPE_FLOAT, value = 1, freeze = true},
 
-        {address = v.address - 388, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
-        {address = v.address - 340, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+    {address = v.address - 388, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 340, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
-        {address = v.address - 412, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-        {address = v.address - 408, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    {address = v.address - 412, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 408, flags = gg.TYPE_DWORD, value = val2, freeze = true},
 
-        {address = v.address - 644, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+    {address = v.address - 220, flags = gg.TYPE_DWORD, value = 0, freeze = true},
 
-        {address = v.address - 692, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
-        {address = v.address - 716, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-        {address = v.address - 712, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    {address = v.address - 524, flags = gg.TYPE_DWORD, value = 0, freeze = true},
 
-        {address = v.address - 948, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+    {address = v.address - 644, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
-        {address = v.address - 996, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
-        {address = v.address - 1020, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-        {address = v.address - 1016, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    {address = v.address - 692, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 716, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 712, flags = gg.TYPE_DWORD, value = val2, freeze = true},
 
-        {address = v.address - 1252, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+    {address = v.address - 828, flags = gg.TYPE_DWORD, value = 0, freeze = true},
 
-        {address = v.address - 1300, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
-        {address = v.address - 1324, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-        {address = v.address - 1320, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    {address = v.address - 948, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
-        {address = v.address - 1556, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+    {address = v.address - 996, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 1020, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 1016, flags = gg.TYPE_DWORD, value = val2, freeze = true},
 
-        {address = v.address - 1604, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
-        {address = v.address - 1628, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-        {address = v.address - 1624, flags = gg.TYPE_DWORD, value = val2, freeze = true},
-    }
+    {address = v.address - 1132, flags = gg.TYPE_DWORD, value = 0, freeze = true},
 
-    gg.setValues(modifications)
+    {address = v.address - 1252, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+    {address = v.address - 1300, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 1324, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 1320, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+
+    {address = v.address - 1436, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+
+    {address = v.address - 1556, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+    {address = v.address - 1604, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 1628, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 1624, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+}
+
+gg.setValues(modifications)
 
     for _, mod in ipairs(modifications) do
         if mod.freeze then
