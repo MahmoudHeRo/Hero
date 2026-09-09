@@ -3203,7 +3203,7 @@ end
 end
 
 --ارسال الكروت الجديد
-function F7()
+function F77777()
     gg.toast("❤️لا تنسي الصلاة علي النبي❤️")
     gg.clearResults()
     gg.setVisible(false)
@@ -3347,6 +3347,7 @@ function F7()
 
     gg.clearResults()
 end
+
 
 
 -- زيادة الكروت 
