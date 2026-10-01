@@ -19,7 +19,7 @@ local MESSENGER_LINK = "https://m.me/mahmouddhero"
 
 local LINE = "━━━━━━━━━━━━━━━━"
 
--- نسخ الرابط ومحاولة فتحه، ثم سؤال المستخدم هل يرجع للقائمة
+-- نسخ الرابط ومحاولة فتحه، ثم: رجوع للقائمة / بدء السكربت / خروج
 local function copyLink(name, url)
   pcall(os.execute, '/system/bin/am start --user 0 -a android.intent.action.VIEW -d "' .. url .. '" >/dev/null 2>&1')
   gg.copyText(url, false)
@@ -30,7 +30,7 @@ local function copyLink(name, url)
     .. LINE .. "\n\n"
     .. "📋 افتح المتصفح أو التطبيق، ثم اضغط مطولًا على شريط البحث واختر (لصق)."
 
-return gg.alert(msg, "🔙 رجوع للقائمة", "▶️ بدء السكربت")
+  return gg.alert(msg, "🔙 رجوع للقائمة", "▶️ بدء السكربت", "🚪 خروج")
 end
 
 local function showUpdate(latest)
@@ -57,10 +57,14 @@ local function showUpdate(latest)
     elseif choice == 3 then
       result = copyLink("ماسنجر", MESSENGER_LINK)
     else
-      return -- المستخدم أغلق الرسالة
+      return -- إغلاق الرسالة الرئيسية: يبدأ السكربت
     end
 
-    if result ~= 1 then return end -- أي شيء غير "رجوع للقائمة" يغلق الرسالة
+    if result == 3 then
+      os.exit() -- زر الخروج: إيقاف السكربت نهائيًا
+    elseif result ~= 1 then
+      return -- بدء السكربت (أو إغلاق الرسالة)
+    end
   end
 end
 
@@ -72,6 +76,8 @@ if ok and response and response.content then
     showUpdate(latest)
   end
 end
+
+
 
 do
     local _error = error
