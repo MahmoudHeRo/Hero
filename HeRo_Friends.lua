@@ -10,7 +10,7 @@
 -- ██║  ██║███████╗██║  ██║╚██████╔╝
 -- ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝--
 
-local CURRENT_VERSION = 102
+local CURRENT_VERSION = 103
 local VERSION_URL = "https://pastebin.com/raw/F1t2tycZ"
 
 local response = gg.makeRequest(VERSION_URL)
