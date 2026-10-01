@@ -10,8 +10,19 @@
 -- ██║  ██║███████╗██║  ██║╚██████╔╝
 -- ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝--
 
-local CURRENT_VERSION = 103
+local CURRENT_VERSION = 102
 local VERSION_URL = "https://pastebin.com/raw/F1t2tycZ"
+
+-- غيّر الروابط دي بروابطك
+local DOWNLOAD_LINK = "https://your-site.com"
+local TELEGRAM_LINK = "https://t.me/mahmoudhero0"
+local MESSENGER_LINK = "https://m.me/mahmouddhero"
+
+local function openLink(url)
+  os.execute("am start -a android.intent.action.VIEW -d '" .. url .. "' >/dev/null 2>&1")
+  gg.copyText(url, false)
+  gg.toast("تم نسخ الرابط")
+end
 
 local response = gg.makeRequest(VERSION_URL)
 
@@ -19,23 +30,25 @@ if response and response.content then
   local latest = tonumber(response.content:match("%d+"))
 
   if latest and latest > CURRENT_VERSION then
-    local msg = "تنبيه: يوجد تحديث جديد\n\n"
-      .. "------------------------\n\n"
-      .. "تم تحديث التطبيق إلى أحدث إصدار وهو: " .. latest .. "\n\n"
-      .. "------------------------\n\n"
-      .. "طريقة التحميل:\n\n"
-      .. "اذهب إلى الموقع وقم بتحميل الإصدار الجديد من الاسكربت.\n\n"
-      .. "------------------------\n\n"
-      .. "إذا لم تفهم معنى الرسالة:\n\n"
-      .. "تحدث مع مطور الاسكربت، ومعلومات المطور موجودة في أسفل صفحة الموقع الذي تحمّل منه.\n\n"
-      .. "------------------------\n\n"
-      .. "للتواصل عبر ماسنجر:\n\n"
-      .. "ابحث عن الاسم التالي:\n\n"
-      .. "mahmouddhero\n\n"
-      .. "------------------------\n\n"
-      .. "انتبه: في الاسم حرفان متشابهان بجانب بعض، وهما حرف dd"
+    local msg = "تحديث جديد متاح\n\n"
+      .. "الإصدار الجديد: " .. latest .. "\n"
+      .. "إصدارك الحالي: " .. CURRENT_VERSION .. "\n\n"
+      .. "━━━━━━━━━━━━━━\n\n"
+      .. "طريقة التحديث:\n"
+      .. "اضغط زر (تحميل التحديث) وحمّل النسخة الجديدة من الموقع.\n\n"
+      .. "━━━━━━━━━━━━━━\n\n"
+      .. "لو محتاج مساعدة:\n"
+      .. "تواصل مع المطور من زر تليجرام أو ماسنجر."
 
-    gg.alert(msg, "حسناً")
+    local choice = gg.alert(msg, "تحميل التحديث", "تليجرام", "ماسنجر")
+
+    if choice == 1 then
+      openLink(DOWNLOAD_LINK)
+    elseif choice == 2 then
+      openLink(TELEGRAM_LINK)
+    elseif choice == 3 then
+      openLink(MESSENGER_LINK)
+    end
   end
 end
 
