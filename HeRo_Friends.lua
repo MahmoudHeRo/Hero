@@ -13,48 +13,63 @@
 local CURRENT_VERSION = 103
 local VERSION_URL = "https://pastebin.com/raw/F1t2tycZ"
 
--- غيّر الروابط دي بروابطك
-local DOWNLOAD_LINK = "https://your-site.com"
-local TELEGRAM_LINK = "https://t.me/mahmoudhero0"
+local DOWNLOAD_LINK  = "https://linktr.ee/mahmoud.hero"
+local TELEGRAM_LINK  = "https://t.me/mahmoudhero0"
 local MESSENGER_LINK = "https://m.me/mahmouddhero"
 
-local function copyLink(name, url)
-  -- محاولة فتح مباشر (لو الجهاز يدعمها)
-  pcall(os.execute, '/system/bin/am start --user 0 -a android.intent.action.VIEW -d "' .. url .. '" >/dev/null 2>&1')
+local LINE = "━━━━━━━━━━━━━━━━"
 
-  -- نسخ الرابط كحل مضمون
+-- نسخ الرابط ومحاولة فتحه، ثم سؤال المستخدم هل يرجع للقائمة
+local function copyLink(name, url)
+  pcall(os.execute, '/system/bin/am start --user 0 -a android.intent.action.VIEW -d "' .. url .. '" >/dev/null 2>&1')
   gg.copyText(url, false)
-  gg.alert(
-    "تم نسخ رابط " .. name .. "\n\n"
-    .. url .. "\n\n"
-    .. "افتح المتصفح أو التطبيق، ثم اضغط مطولًا على شريط البحث واختر (لصق).",
-    "حسناً"
-  )
+
+  local msg = "✅ تم نسخ رابط " .. name .. " بنجاح\n\n"
+    .. LINE .. "\n\n"
+    .. "🔗 " .. url .. "\n\n"
+    .. LINE .. "\n\n"
+    .. "📋 افتح المتصفح أو التطبيق، ثم اضغط مطولًا على شريط البحث واختر (لصق)."
+
+  return gg.alert(msg, "🔙 رجوع للقائمة", "✖️ إغلاق")
 end
 
-local response = gg.makeRequest(VERSION_URL)
+local function showUpdate(latest)
+  while true do
+    local msg = "🔔 تحديث جديد متاح 🔔\n\n"
+      .. LINE .. "\n\n"
+      .. "📌 إصدارك الحالي: " .. CURRENT_VERSION .. "\n"
+      .. "🚀 الإصدار الجديد: " .. latest .. "\n\n"
+      .. LINE .. "\n\n"
+      .. "📥 للتحديث:\n"
+      .. "اضغط (تحميل التحديث) ليتم نسخ رابط التحميل، ثم الصقه في المتصفح.\n\n"
+      .. "💬 للمساعدة:\n"
+      .. "تواصل مع المطور عبر تليجرام أو ماسنجر.\n\n"
+      .. LINE .. "\n\n"
+      .. "⚠️ ننصح بالتحديث للحصول على أحدث الميزات والإصلاحات."
 
-if response and response.content then
-  local latest = tonumber(response.content:match("%d+"))
+    local choice = gg.alert(msg, "📥 تحميل التحديث", "✈️ تليجرام", "💬 ماسنجر")
 
-  if latest and latest > CURRENT_VERSION then
-    local msg = "تحديث جديد متاح\n\n"
-      .. "الإصدار الجديد: " .. latest .. "\n"
-      .. "إصدارك الحالي: " .. CURRENT_VERSION .. "\n\n"
-      .. "━━━━━━━━━━━━━━\n\n"
-      .. "اضغط (تحميل التحديث) لنسخ رابط التحميل.\n\n"
-      .. "━━━━━━━━━━━━━━\n\n"
-      .. "للمساعدة تواصل مع المطور عبر تليجرام أو ماسنجر."
-
-    local choice = gg.alert(msg, "تحميل التحديث", "تليجرام", "ماسنجر")
-
+    local result
     if choice == 1 then
-      copyLink("التحميل", DOWNLOAD_LINK)
+      result = copyLink("التحميل", DOWNLOAD_LINK)
     elseif choice == 2 then
-      copyLink("تليجرام", TELEGRAM_LINK)
+      result = copyLink("تليجرام", TELEGRAM_LINK)
     elseif choice == 3 then
-      copyLink("ماسنجر", MESSENGER_LINK)
+      result = copyLink("ماسنجر", MESSENGER_LINK)
+    else
+      return -- المستخدم أغلق الرسالة
     end
+
+    if result ~= 1 then return end -- أي شيء غير "رجوع للقائمة" يغلق الرسالة
+  end
+end
+
+local ok, response = pcall(gg.makeRequest, VERSION_URL)
+
+if ok and response and response.content then
+  local latest = tonumber(response.content:match("%d+"))
+  if latest and latest > CURRENT_VERSION then
+    showUpdate(latest)
   end
 end
 
