@@ -18,10 +18,18 @@ local DOWNLOAD_LINK = "https://your-site.com"
 local TELEGRAM_LINK = "https://t.me/mahmoudhero0"
 local MESSENGER_LINK = "https://m.me/mahmouddhero"
 
-local function openLink(url)
-  os.execute("am start -a android.intent.action.VIEW -d '" .. url .. "' >/dev/null 2>&1")
+local function copyLink(name, url)
+  -- محاولة فتح مباشر (لو الجهاز يدعمها)
+  pcall(os.execute, '/system/bin/am start --user 0 -a android.intent.action.VIEW -d "' .. url .. '" >/dev/null 2>&1')
+
+  -- نسخ الرابط كحل مضمون
   gg.copyText(url, false)
-  gg.toast("تم نسخ الرابط")
+  gg.alert(
+    "تم نسخ رابط " .. name .. "\n\n"
+    .. url .. "\n\n"
+    .. "افتح المتصفح أو التطبيق، ثم اضغط مطولًا على شريط البحث واختر (لصق).",
+    "حسناً"
+  )
 end
 
 local response = gg.makeRequest(VERSION_URL)
@@ -34,20 +42,18 @@ if response and response.content then
       .. "الإصدار الجديد: " .. latest .. "\n"
       .. "إصدارك الحالي: " .. CURRENT_VERSION .. "\n\n"
       .. "━━━━━━━━━━━━━━\n\n"
-      .. "طريقة التحديث:\n"
-      .. "اضغط زر (تحميل التحديث) وحمّل النسخة الجديدة من الموقع.\n\n"
+      .. "اضغط (تحميل التحديث) لنسخ رابط التحميل.\n\n"
       .. "━━━━━━━━━━━━━━\n\n"
-      .. "لو محتاج مساعدة:\n"
-      .. "تواصل مع المطور من زر تليجرام أو ماسنجر."
+      .. "للمساعدة تواصل مع المطور عبر تليجرام أو ماسنجر."
 
     local choice = gg.alert(msg, "تحميل التحديث", "تليجرام", "ماسنجر")
 
     if choice == 1 then
-      openLink(DOWNLOAD_LINK)
+      copyLink("التحميل", DOWNLOAD_LINK)
     elseif choice == 2 then
-      openLink(TELEGRAM_LINK)
+      copyLink("تليجرام", TELEGRAM_LINK)
     elseif choice == 3 then
-      openLink(MESSENGER_LINK)
+      copyLink("ماسنجر", MESSENGER_LINK)
     end
   end
 end
