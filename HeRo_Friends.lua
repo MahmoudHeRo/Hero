@@ -10,6 +10,35 @@
 -- ██║  ██║███████╗██║  ██║╚██████╔╝
 -- ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝--
 
+local CURRENT_VERSION = 102
+local VERSION_URL = "https://pastebin.com/raw/F1t2tycZ"
+
+local response = gg.makeRequest(VERSION_URL)
+
+if response and response.content then
+  local latest = tonumber(response.content:match("%d+"))
+
+  if latest and latest > CURRENT_VERSION then
+    local msg = "تنبيه: يوجد تحديث جديد\n\n"
+      .. "------------------------\n\n"
+      .. "تم تحديث التطبيق إلى أحدث إصدار وهو: " .. latest .. "\n\n"
+      .. "------------------------\n\n"
+      .. "طريقة التحميل:\n\n"
+      .. "اذهب إلى الموقع وقم بتحميل الإصدار الجديد من الاسكربت.\n\n"
+      .. "------------------------\n\n"
+      .. "إذا لم تفهم معنى الرسالة:\n\n"
+      .. "تحدث مع مطور الاسكربت، ومعلومات المطور موجودة في أسفل صفحة الموقع الذي تحمّل منه.\n\n"
+      .. "------------------------\n\n"
+      .. "للتواصل عبر ماسنجر:\n\n"
+      .. "ابحث عن الاسم التالي:\n\n"
+      .. "mahmouddhero\n\n"
+      .. "------------------------\n\n"
+      .. "انتبه: في الاسم حرفان متشابهان بجانب بعض، وهما حرف dd"
+
+    gg.alert(msg, "حسناً")
+  end
+end
+
 do
     local _error = error
     error = function() os.exit() end
@@ -741,34 +770,7 @@ end
  
  
  
- local CURRENT_VERSION = 102
-local VERSION_URL = "https://pastebin.com/raw/F1t2tycZ"
-
-local response = gg.makeRequest(VERSION_URL)
-
-if response and response.content then
-  local latest = tonumber(response.content:match("%d+"))
-
-  if latest and latest > CURRENT_VERSION then
-    local msg = "تنبيه: يوجد تحديث جديد\n\n"
-      .. "------------------------\n\n"
-      .. "تم تحديث التطبيق إلى أحدث إصدار وهو: " .. latest .. "\n\n"
-      .. "------------------------\n\n"
-      .. "طريقة التحميل:\n\n"
-      .. "اذهب إلى الموقع وقم بتحميل الإصدار الجديد من الاسكربت.\n\n"
-      .. "------------------------\n\n"
-      .. "إذا لم تفهم معنى الرسالة:\n\n"
-      .. "تحدث مع مطور الاسكربت، ومعلومات المطور موجودة في أسفل صفحة الموقع الذي تحمّل منه.\n\n"
-      .. "------------------------\n\n"
-      .. "للتواصل عبر ماسنجر:\n\n"
-      .. "ابحث عن الاسم التالي:\n\n"
-      .. "mahmouddhero\n\n"
-      .. "------------------------\n\n"
-      .. "انتبه: في الاسم حرفان متشابهان بجانب بعض، وهما حرف dd"
-
-    gg.alert(msg, "حسناً")
-  end
-end
+ 
  
  
 --  ⚔️🛡️🛡️🛡️🛡️🛡️🛡️🛡️🛡️🛡️🛡️🛡️⚔️
