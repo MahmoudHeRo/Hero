@@ -30,7 +30,7 @@ local function copyLink(name, url)
     .. LINE .. "\n\n"
     .. "📋 افتح المتصفح أو التطبيق، ثم اضغط مطولًا على شريط البحث واختر (لصق)."
 
-  return gg.alert(msg, "🔙 رجوع للقائمة", "✖️ إغلاق")
+return gg.alert(msg, "🔙 رجوع للقائمة", "▶️ بدء السكربت")
 end
 
 local function showUpdate(latest)
