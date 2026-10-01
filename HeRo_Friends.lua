@@ -742,11 +742,22 @@ end
  
  
  gg.alert([[
+تنبيه: يوجد تحديث جدlocal CURRENT_VERSION = 102
+local VERSION_URL = "https://pastebin.com/raw/F1t2tycZ"
+
+local response = gg.makeRequest(VERSION_URL)
+
+if response and response.content then
+  local latest = tonumber(response.content:match("%d+"))
+
+  if latest and latest > CURRENT_VERSION then
+    gg.alert([[
 تنبيه: يوجد تحديث جديد
 
 ------------------------
 
-تم تحديث التطبيق إلى أحدث إصدار وهو: 103
+تم تحديث التطبيق إلى أحدث إصدار وهو: ]] .. latest .. [[
+
 
 ------------------------
 
@@ -772,6 +783,8 @@ mahmouddhero
 
 انتبه: في الاسم حرفان متشابهان بجانب بعض، وهما حرف dd
 ]], "حسناً")
+  end
+end
  
  
 --  ⚔️🛡️🛡️🛡️🛡️🛡️🛡️🛡️🛡️🛡️🛡️🛡️⚔️
