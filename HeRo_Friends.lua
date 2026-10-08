@@ -10,7 +10,7 @@
 -- ██║  ██║███████╗██║  ██║╚██████╔╝
 -- ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝--
 
-local MIN_VERSION = "101.3" -- يُستخدم لو تعذر قراءة Pastebin
+local MIN_VERSION = "101.4" 
 local VERSION_URL = "https://pastebin.com/raw/F1t2tycZ"
 
 local DOWNLOAD_LINK  = "https://linktr.ee/mahmoud.hero"
@@ -19,7 +19,7 @@ local MESSENGER_LINK = "https://m.me/mahmouddhero"
 
 local LINE = "━━━━━━━━━━━━━━━━"
 
--- تحويل الإصدار لأرقام ومقارنته
+
 local function parseVer(s)
   local t = {}
   for n in tostring(s or ""):gmatch("%d+") do t[#t + 1] = tonumber(n) end
@@ -35,7 +35,7 @@ local function isOlder(a, b)
   return false
 end
 
--- نسخ الرابط ومحاولة فتحه، ثم: رجوع للقائمة / بدء السكربت / خروج
+
 local function copyLink(name, url)
   pcall(os.execute, '/system/bin/am start --user 0 -a android.intent.action.VIEW -d "' .. url .. '" >/dev/null 2>&1')
   gg.copyText(url, false)
@@ -76,18 +76,18 @@ local function showUpdate(latest)
     elseif choice == 3 then
       result = copyLink("ماسنجر", MESSENGER_LINK)
     else
-      return -- إغلاق الرسالة الرئيسية: يبدأ السكربت
+      return 
     end
 
     if result == 3 then
-      os.exit() -- زر الخروج: إيقاف السكربت نهائيًا
+      os.exit() 
     elseif result ~= 1 then
-      return -- بدء السكربت (أو إغلاق الرسالة)
+      return 
     end
   end
 end
 
--- الإصدار المطلوب: من Pastebin، وإلا القيمة الاحتياطية
+
 local required = MIN_VERSION
 local ok, response = pcall(gg.makeRequest, VERSION_URL)
 if ok and response and response.content then
