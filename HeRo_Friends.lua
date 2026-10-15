@@ -17,7 +17,7 @@ local DOWNLOAD_LINK  = "https://linktr.ee/mahmoud.hero"
 local TELEGRAM_LINK  = "https://t.me/mahmoudhero0"
 local MESSENGER_LINK = "https://m.me/mahmouddhero"
 
-local LINE = "━━━━━━━━━━━━━━━━"
+local LINE = "━━━━━━━
 
 
 local function parseVer(s)
