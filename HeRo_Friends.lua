@@ -3936,7 +3936,6 @@ local val1 = 1701345034
 local val2 = 1677751393
 local qwordValue = 1
 
-
 if choice[2] == true then
 gg.alert("⚠️ تحذير ⚠️\nلا تضع رقم كبير حتى لا يتم حظرك\n\n📌 المسموح من 1 إلى 400 فقط")
 
@@ -3953,15 +3952,14 @@ val1 = 1634296844
 val2 = 7169380
 end
 
-
 gg.clearResults()
-gg.searchNumber("50;1801519104;51;52:65", gg.TYPE_DWORD)
-gg.refineNumber("51", gg.TYPE_DWORD)
+gg.searchNumber("49;1801519104;51;52:65", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+gg.refineNumber("49", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
 
 local results = gg.getResults(3)
 
 if #results == 0 then
-    gg.alert("❌ كود طلب المساعدة في القطار لا يعمل ❌\n\n📸 تحدث مع مطور الاسكربت وأرسل صوره📸 ")
+    gg.alert("❌ كود طلب المساعدة في القطار لا يعمل ❌\n\n🚂 خلي القطار فاضي من الأول خالص، وادخل حدث الاستكشاف وابحث تاني 🔍\n\n⚠️ لو المشكلة متحلتش، اقفل اللعبة وافتحها تاني وجرب مرة أخرى.")
     return
 end
 
@@ -3970,47 +3968,54 @@ local freezeList = {}
 for i, v in ipairs(results) do
 
     local modifications = {
-    {address = v.address + 52, flags = gg.TYPE_FLOAT, value = 1, freeze = true},
+    -- تفعيل عام (زي كودك الأصلي)
+    {address = v.address + 116, flags = gg.TYPE_FLOAT, value = 1, freeze = true},
 
-    {address = v.address - 388, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
-    {address = v.address - 340, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+    -- ============ الصندوق 1 (base = v - 356) ============
+    {address = v.address - 328, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 284, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+    {address = v.address - 356, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 352, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    {address = v.address - 332, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 124, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 164, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
-    {address = v.address - 412, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-    {address = v.address - 408, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    -- ============ الصندوق 2 (base = v - 668) ============
+    {address = v.address - 640, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 596, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+    {address = v.address - 668, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 664, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    {address = v.address - 644, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 436, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 476, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
-    {address = v.address - 220, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    -- ============ الصندوق 3 (base = v - 1292) ============
+    {address = v.address - 1264, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 1220, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+    {address = v.address - 1292, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 1288, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    {address = v.address - 1268, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 1060, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 1100, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
-    {address = v.address - 524, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    -- ============ الصندوق 4 (base = v - 980) ============
+    {address = v.address - 952, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 908, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
-    {address = v.address - 644, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+{address = v.address - 980, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 976, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    {address = v.address - 956, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 748, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 788, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
-    {address = v.address - 692, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
-    {address = v.address - 716, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-    {address = v.address - 712, flags = gg.TYPE_DWORD, value = val2, freeze = true},
-
-    {address = v.address - 828, flags = gg.TYPE_DWORD, value = 0, freeze = true},
-
-    {address = v.address - 948, flags = gg.TYPE_DWORD, value = 1, freeze = true},
-
-    {address = v.address - 996, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
-    {address = v.address - 1020, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-    {address = v.address - 1016, flags = gg.TYPE_DWORD, value = val2, freeze = true},
-
-    {address = v.address - 1132, flags = gg.TYPE_DWORD, value = 0, freeze = true},
-
-    {address = v.address - 1252, flags = gg.TYPE_DWORD, value = 1, freeze = true},
-
-    {address = v.address - 1300, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
-    {address = v.address - 1324, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-    {address = v.address - 1320, flags = gg.TYPE_DWORD, value = val2, freeze = true},
-
-    {address = v.address - 1436, flags = gg.TYPE_DWORD, value = 0, freeze = true},
-
-    {address = v.address - 1556, flags = gg.TYPE_DWORD, value = 1, freeze = true},
-
-    {address = v.address - 1604, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
-    {address = v.address - 1628, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-    {address = v.address - 1624, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    -- ============ الصندوق 5 (base = v - 1604) ============
+    {address = v.address - 1576, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 1532, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+    {address = v.address - 1604, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 1600, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+    {address = v.address - 1580, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 1372, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 1412, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 }
 
 gg.setValues(modifications)
@@ -4031,10 +4036,14 @@ if #freezeList > 0 then
     gg.addListItems(freezeList)
 
     if choice[1] == true then
-   gg.alert("🕵️‍♂️يمكن ارسال البرسيم للاصدقاء بعد المساعدة🕵️‍♂️")
- else   
- end
- gg.toast("🏴‍☠️🔥𝙈𝘼𝙃𝙈𝙊𝙐𝘿𝙃𝙀𝙍𝙊🔥🏴‍☠️")
+        gg.alert("🕵️‍♂️يمكن ارسال البرسيم للاصدقاء بعد المساعدة🕵️‍♂️")
+    end
+
+    if choice[2] == true then
+        gg.alert("✅ تم تفعيل التاج بنجاح ✅\n\n👑 اذهب وشاهد بنفسك 👑")
+    end
+    
+    gg.toast("🏴‍☠️🔥𝙈𝘼𝙃𝙈𝙊𝙐𝘿𝙃𝙀𝙍𝙊🔥🏴‍☠️")
 end
 end
 
