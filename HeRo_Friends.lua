@@ -3953,7 +3953,7 @@ val2 = 7169380
 end
 
 gg.clearResults()
-gg.searchNumber("49;1801519104;51;52:65", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber("49;1801519104;51:65", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
 gg.refineNumber("49", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
 
 local results = gg.getResults(3)
