@@ -3921,7 +3921,6 @@ end
 
 
 
-
 --طلب مساعده في القطار 
 function HH1()    
 gg.setVisible(false)
@@ -3953,7 +3952,7 @@ val2 = 7169380
 end
 
 gg.clearResults()
-gg.searchNumber("49;1801519104;51:65", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber("49;1801519104;51;52:65", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
 gg.refineNumber("49", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
 
 local results = gg.getResults(3)
@@ -3968,53 +3967,42 @@ local freezeList = {}
 for i, v in ipairs(results) do
 
     local modifications = {
-    -- تفعيل عام (زي كودك الأصلي)
+   
     {address = v.address + 116, flags = gg.TYPE_FLOAT, value = 1, freeze = true},
 
     -- ============ الصندوق 1 (base = v - 356) ============
-    {address = v.address - 328, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 332, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
     {address = v.address - 284, flags = gg.TYPE_DWORD, value = 1, freeze = true},
     {address = v.address - 356, flags = gg.TYPE_DWORD, value = val1, freeze = true},
     {address = v.address - 352, flags = gg.TYPE_DWORD, value = val2, freeze = true},
-    {address = v.address - 332, flags = gg.TYPE_DWORD, value = 0, freeze = true},
-    {address = v.address - 124, flags = gg.TYPE_DWORD, value = 0, freeze = true},
     {address = v.address - 164, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
     -- ============ الصندوق 2 (base = v - 668) ============
-    {address = v.address - 640, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 644, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
     {address = v.address - 596, flags = gg.TYPE_DWORD, value = 1, freeze = true},
     {address = v.address - 668, flags = gg.TYPE_DWORD, value = val1, freeze = true},
     {address = v.address - 664, flags = gg.TYPE_DWORD, value = val2, freeze = true},
-    {address = v.address - 644, flags = gg.TYPE_DWORD, value = 0, freeze = true},
-    {address = v.address - 436, flags = gg.TYPE_DWORD, value = 0, freeze = true},
     {address = v.address - 476, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
     -- ============ الصندوق 3 (base = v - 1292) ============
-    {address = v.address - 1264, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 1268, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
     {address = v.address - 1220, flags = gg.TYPE_DWORD, value = 1, freeze = true},
     {address = v.address - 1292, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-    {address = v.address - 1288, flags = gg.TYPE_DWORD, value = val2, freeze = true},
-    {address = v.address - 1268, flags = gg.TYPE_DWORD, value = 0, freeze = true},
-    {address = v.address - 1060, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 1288, flags = gg.TYPE_DWORD, value = val2, freeze = true}, 
     {address = v.address - 1100, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
     -- ============ الصندوق 4 (base = v - 980) ============
-    {address = v.address - 952, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 956, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
     {address = v.address - 908, flags = gg.TYPE_DWORD, value = 1, freeze = true},
-
-{address = v.address - 980, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+    {address = v.address - 980, flags = gg.TYPE_DWORD, value = val1, freeze = true},
     {address = v.address - 976, flags = gg.TYPE_DWORD, value = val2, freeze = true},
-    {address = v.address - 956, flags = gg.TYPE_DWORD, value = 0, freeze = true},
-    {address = v.address - 748, flags = gg.TYPE_DWORD, value = 0, freeze = true},
     {address = v.address - 788, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 
     -- ============ الصندوق 5 (base = v - 1604) ============
-    {address = v.address - 1576, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+    {address = v.address - 1580, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
     {address = v.address - 1532, flags = gg.TYPE_DWORD, value = 1, freeze = true},
     {address = v.address - 1604, flags = gg.TYPE_DWORD, value = val1, freeze = true},
-    {address = v.address - 1600, flags = gg.TYPE_DWORD, value = val2, freeze = true},
-    {address = v.address - 1580, flags = gg.TYPE_DWORD, value = 0, freeze = true},
-    {address = v.address - 1372, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+    {address = v.address - 1600, flags = gg.TYPE_DWORD, value = val2, freeze = true},   
     {address = v.address - 1412, flags = gg.TYPE_DWORD, value = 1, freeze = true},
 }
 
