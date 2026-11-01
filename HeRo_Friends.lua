@@ -3921,8 +3921,271 @@ end
 
 
 --بلاش تسرق الفكره او الكود علسان شكلك هيكون وحش اوي 
---طلب مساعده في القطار 
+
 function HH1()
+    gg.setVisible(false)
+    gg.toast("❤️لا تنسى الصلاة على النبي❤️")
+
+    
+    gg.alert("🚂 الآن يمكن استخدام القطار في أي وضع لديك بدون تفريغ الصندوق، وبدون إغلاق اللعبة، ويمكن التشغيل أوتوماتيك 🚂")
+
+    
+    local POINTER_MAX_OFFSET = 0   
+
+    local options = {
+        "╔══════⟬⚜️⟭══════╗\n𝄟 ارسال البرسيم فقط للاصدقاء𝄟\n╚═══════════════╝",
+        "╔══════⟬⚜️⟭══════╗\n𝄟     زيادة المستوى للاصدقاء   𝄟\n╚═══════════════╝"
+    }
+    local choice = gg.multiChoice(options, nil, "╔══════════✦❘༻༺❘✦══════════╗\n𝄟⃝🕊                     ❪ اختيار ما تريده ❫                         𝄟\n╚══════════✦❘༻༺❘✦══════════╝")
+
+    if not choice then return end
+    if not choice[1] and not choice[2] then
+        gg.toast("🤡لم تختر شيئًا🤡")
+        return
+    end
+
+    local val1 = 1701345034
+    local val2 = 29793
+    local qwordValue = 1
+
+    if choice[2] == true then
+        gg.alert("⚠️ تحذير ⚠️\nلا تضع رقم كبير حتى لا يتم حظرك\n\n📌 المسموح من 1 إلى 400 فقط")
+
+        local input = gg.prompt({"🇪🇬Edited by MAHMOUDHERO🇪🇬\n🇪🇬 Egypt mother of the world 🇪🇬\n🙋اكتب الرقم الذي تريده (1 - 400)🙋"}, {""}, {"number"})
+        if not input then return end
+        qwordValue = tonumber(input[1])
+
+        if not qwordValue or qwordValue < 1 or qwordValue > 400 then
+            gg.alert("❌ الرقم غير صالح ❌\nيجب أن يكون بين 1 و 400")
+            return
+        end
+
+        val1 = 1634296844
+        val2 = 7169380
+    end
+
+    
+    local mode = gg.choice({
+        "🤖 طلب القطار وتفريغ الصندوق أوتوماتيك",
+        "✋ طلب القطار وتفريغ الصندوق يدوياً"
+    }, nil, "اختيار ما تريده")
+
+    if not mode then
+        gg.toast("🤡تم الإلغاء🤡")
+        return
+    end
+
+    local autoMode = (mode == 1)
+
+    
+    local originalRanges = gg.getRanges()
+
+    
+    local function zeroAfter(baseAddr, count)
+        local list = {}
+        for i = 1, count do
+            list[i] = {address = baseAddr + (i * 4), flags = gg.TYPE_DWORD, value = 0, freeze = true}
+        end
+        return list
+    end
+
+    local function run()
+        -- ===================================================
+        
+        -- ===================================================
+        if (originalRanges & gg.REGION_OTHER) == 0 then
+            gg.setRanges(originalRanges | gg.REGION_OTHER)
+        end
+
+        gg.clearResults()
+        gg.searchNumber("-8;1904::9", gg.TYPE_DWORD)
+        gg.refineNumber("-8", gg.TYPE_DWORD)
+
+        local first = gg.getResults(1)
+
+        -- ===================================================
+        
+        -- ===================================================
+        local results = {}
+
+        if #first > 0 then
+            gg.setRanges(gg.REGION_C_ALLOC)
+
+            gg.clearResults()
+            gg.loadResults(first)
+            gg.searchPointer(POINTER_MAX_OFFSET)
+
+            local count = gg.getResultsCount()
+            if count > 0 then
+                results = gg.getResults(math.min(count, 100))
+            end
+        end
+
+        -- ===================================================
+        
+        -- ===================================================
+        if autoMode and #results > 0 then
+            pcall(function()
+                gg.toast("⏳ انتظر، جاري اكتشاف إذا كان القطار فاضي أو لديه أدوات محملة...")
+
+                local emptied = false
+
+                for _, v in ipairs(results) do
+                    local check = gg.getValues({
+                        {address = v.address + 1728, flags = gg.TYPE_DWORD},
+                        {address = v.address + 1696, flags = gg.TYPE_DWORD},
+                        {address = v.address + 1664, flags = gg.TYPE_DWORD},
+                        {address = v.address + 1632, flags = gg.TYPE_DWORD},
+                        {address = v.address + 1600, flags = gg.TYPE_DWORD},
+                    })
+
+                    local loaded = false
+                    for _, c in ipairs(check) do
+                        if c.value == 1 then
+                            loaded = true
+                        end
+                    end
+
+   
+                    if loaded then
+                        gg.setValues({
+                            {address = v.address + 1732, flags = gg.TYPE_DWORD, value = 1},
+                            {address = v.address + 1700, flags = gg.TYPE_DWORD, value = 1},
+                            {address = v.address + 1668, flags = gg.TYPE_DWORD, value = 1},
+                            {address = v.address + 1636, flags = gg.TYPE_DWORD, value = 1},
+                            {address = v.address + 1604, flags = gg.TYPE_DWORD, value = 1},
+                        })
+                        emptied = true
+                    end
+                end
+
+                if emptied then
+                    gg.toast("✅ تم تفريغ الصندوق، جاري البدء الآن لطلب القطار 🚂")
+                    gg.sleep(1500)
+                end
+            end)
+        end
+
+        -- ===================================================
+
+        -- ===================================================
+        local freezeList = {}
+
+        for i, v in ipairs(results) do
+
+            local modifications = {
+  
+                {address = v.address + 1736, flags = gg.TYPE_FLOAT, value = 1, freeze = true},
+
+                -- ============ الصندوق 1 ============
+                {address = v.address + 80, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+                {address = v.address + 128, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+                {address = v.address + 56, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+                {address = v.address + 60, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+                {address = v.address + 248, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+                -- ============ الصندوق 2 ============
+                {address = v.address + 384, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+                {address = v.address + 432, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+                {address = v.address + 360, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+                {address = v.address + 364, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+                {address = v.address + 552, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+                -- ============ الصندوق 3 ============
+                {address = v.address + 688, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+                {address = v.address + 736, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+                {address = v.address + 664, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+                {address = v.address + 668, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+                {address = v.address + 856, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+                -- ============ الصندوق 4 ============
+                {address = v.address + 992, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+                {address = v.address + 1040, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+                {address = v.address + 968, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+                {address = v.address + 972, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+                {address = v.address + 1160, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+                -- ============ الصندوق 5 ============
+                {address = v.address + 1296, flags = gg.TYPE_QWORD, value = qwordValue, freeze = true},
+                {address = v.address + 1344, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+                {address = v.address + 1272, flags = gg.TYPE_DWORD, value = val1, freeze = true},
+                {address = v.address + 1276, flags = gg.TYPE_DWORD, value = val2, freeze = true},
+                {address = v.address + 1464, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+            }
+
+            
+            if autoMode then
+                table.insert(modifications, {address = v.address + 1732, flags = gg.TYPE_DWORD, value = 1, freeze = true})
+                table.insert(modifications, {address = v.address + 1700, flags = gg.TYPE_DWORD, value = 1, freeze = true})
+                table.insert(modifications, {address = v.address + 1668, flags = gg.TYPE_DWORD, value = 1, freeze = true})
+                table.insert(modifications, {address = v.address + 1636, flags = gg.TYPE_DWORD, value = 1, freeze = true})
+                table.insert(modifications, {address = v.address + 1604, flags = gg.TYPE_DWORD, value = 1, freeze = true})
+            end
+
+            
+            local zeroLists = {
+                zeroAfter(v.address + 60,   4),  -- بعد val2 الصندوق 1: +64, +68, +72, +76
+                zeroAfter(v.address + 364,  4),  -- بعد val2 الصندوق 2: +368, +372, +376, +380
+                zeroAfter(v.address + 668,  4),  -- بعد val2 الصندوق 3: +672, +676, +680, +684
+                zeroAfter(v.address + 972,  4),  -- بعد val2 الصندوق 4: +976, +980, +984, +988
+                zeroAfter(v.address + 1276, 4),  -- بعد val2 الصندوق 5: +1280, +1284, +1288, +1292
+            }
+
+            for _, zl in ipairs(zeroLists) do
+                for _, item in ipairs(zl) do
+                    table.insert(modifications, item)
+                end
+            end
+
+            gg.setValues(modifications)
+
+            for _, mod in ipairs(modifications) do
+                if mod.freeze then
+                    table.insert(freezeList, {
+                        address = mod.address,
+                        flags = mod.flags,
+                        value = mod.value,
+                        freeze = true
+                    })
+                end
+            end
+        end
+
+        gg.clearResults()
+
+        -- ===================================================
+
+        -- ===================================================
+        if #freezeList > 0 then
+            gg.addListItems(freezeList)
+
+            if choice[1] == true then
+                gg.alert("🕵️‍♂️يمكن ارسال البرسيم للاصدقاء بعد المساعدة🕵️‍♂️")
+            end
+
+            if choice[2] == true then
+                gg.alert("✅ تم تفعيل التاج بنجاح ✅\n\n👑 اذهب وشاهد بنفسك 👑")
+            end
+
+            gg.toast("🏴‍☠️🔥𝙈𝘼𝙃𝙈𝙊𝙐𝘿𝙃𝙀𝙍𝙊🔥🏴‍☠️")
+        elseif #first == 0 then
+            gg.alert("❌ كود طلب المساعدة في القطار لا يعمل ❌\n\n🚂 خلي القطار فاضي من الأول خالص، وادخل حدث الاستكشاف وابحث تاني 🔍\n\n⚠️ لو المشكلة متحلتش، اقفل اللعبة وافتحها تاني وجرب مرة أخرى.")
+        else
+            gg.alert("❌ لم يتم العثور على مؤشرات للقطار ❌\n\n🚂 تأكد أن القطار موجود في المحطة، وأعد المحاولة")
+        end
+    end
+
+    
+    local ok, err = pcall(run)
+    gg.setRanges(originalRanges)
+    if not ok then
+        gg.alert("⚠️ حدث خطأ:\n" .. tostring(err))
+    end
+end
+
+
+--طلب مساعده في القطار 
+function HH111()
     gg.setVisible(false)
     gg.toast("❤️لا تنسى الصلاة على النبي❤️")
     gg.alert("🚂 الآن يمكن استخدام القطار في أي وضع لديك بدون تفريغ الصندوق، وبدون إغلاق اللعبة، ويمكن التشغيل أوتوماتيك 🚂")
