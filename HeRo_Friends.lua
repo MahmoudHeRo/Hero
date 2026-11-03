@@ -3998,7 +3998,7 @@ function HH1()
         end
 
         gg.clearResults()
-        gg.searchNumber("-8;1904~1944::9", gg.TYPE_DWORD)
+        gg.searchNumber("-8;1904~1944:9", gg.TYPE_DWORD)
         gg.refineNumber("-8", gg.TYPE_DWORD)
 
         local first = gg.getResults(1)
