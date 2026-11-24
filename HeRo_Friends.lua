@@ -846,7 +846,7 @@ gg.alert('🙋رايح فين خد معاك خمسه جنيه وأرسل الص�
 os.exit()
 end
 
-gg.alert("⚠️تم استبدال قسم الحظر ب اسم قسم متنوعه وإضافة بعض الاكواد ⚠️")
+gg.alert("⚠️تم اصلاح القطار للجميع يمكن التجربه الان⚠️")
 
 
 lastMenu = nil
@@ -5411,7 +5411,7 @@ end
 
 
 
-
+--طلب مساعده في القطار 
 function HH1()
     gg.setVisible(false)
     gg.toast("❤️لا تنسى الصلاة على النبي❤️")
@@ -5486,8 +5486,9 @@ function HH1()
     end
 
     local function run()
-        if (originalRanges & gg.REGION_OTHER) == 0 then
-            gg.setRanges(originalRanges | gg.REGION_OTHER)
+        
+        if (originalRanges & gg.REGION_OTHER) == 0 or (originalRanges & gg.REGION_C_DATA) == 0 then
+            gg.setRanges(originalRanges | gg.REGION_OTHER | gg.REGION_C_DATA)
         end
 
         gg.clearResults()
@@ -5499,7 +5500,8 @@ function HH1()
         local results = {}
 
         if #first > 0 then
-            gg.setRanges(gg.REGION_C_ALLOC)
+            
+            gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_C_DATA)
 
             gg.clearResults()
             gg.loadResults(first)
